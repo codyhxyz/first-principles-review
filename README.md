@@ -31,7 +31,7 @@ Claude Code will trigger this skill automatically when your request matches.
 ### Claude Code (recommended)
 
 ```bash
-/plugin marketplace add ydoc5212/first-principles-review
+/plugin marketplace add codyhxyz/first-principles-review
 /plugin install first-principles-review@first-principles-review
 ```
 
@@ -39,7 +39,7 @@ Claude Code will trigger this skill automatically when your request matches.
 
 ```bash
 mkdir -p ~/.claude/skills/first-principles-review
-curl -fsSL https://raw.githubusercontent.com/ydoc5212/first-principles-review/main/skills/first-principles-review/SKILL.md \
+curl -fsSL https://raw.githubusercontent.com/codyhxyz/first-principles-review/main/skills/first-principles-review/SKILL.md \
   -o ~/.claude/skills/first-principles-review/SKILL.md
 ```
 
