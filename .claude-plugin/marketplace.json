@@ -1,6 +1,8 @@
 {
   "name": "first-principles-review",
-  "description": "Single-plugin marketplace for the first-principles-review skill.",
+  "metadata": {
+    "description": "Single-plugin marketplace for the first-principles-review skill."
+  },
   "owner": {
     "name": "Cody Hergenroeder",
     "email": "chergenroeder135@gmail.com"
