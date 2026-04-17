@@ -55,7 +55,13 @@ Just ask Claude Code to review something:
 
 The skill kicks in automatically. You'll get a structured review you can actually act on, instead of a flat list of style nits.
 
-## Example output shape
+## Examples
+
+> **Example 1:** "Review this Chrome extension and tell me what could be better." — The skill reconstructs the goal from the manifest and README (WHY), maps the content-script/background/popup architecture (WHAT), reads the load-bearing files (HOW), and surfaces that `background.ts` interleaves storage and sync logic — tying the suggestion back to a real offline-mode bug in the issue tracker. Ranked above naming nits.
+
+> **Example 2:** "I inherited this repo and I don't trust the previous AI's refactor. What should I change?" — Instead of flagging 20 style issues, the skill names the single architectural mismatch (the sync queue has accreted complexity the original goal didn't require) and proposes a targeted rewrite with justification tied to the project's actual constraints. Polish-tier issues go at the bottom, unranked.
+
+## Output format
 
 ```
 ## WHY
