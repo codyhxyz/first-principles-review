@@ -1,0 +1,20 @@
+{
+  "name": "first-principles-review",
+  "description": "A Claude Code skill that reviews codebases top-down: WHY (goal) → WHAT (architecture) → HOW (implementation) → improvements ranked by leverage. The antidote to surface-level LLM nitpick reviews.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Cody Hergenroeder",
+    "email": "chergenroeder135@gmail.com"
+  },
+  "homepage": "https://github.com/ydoc5212/first-principles-review",
+  "repository": "https://github.com/ydoc5212/first-principles-review",
+  "license": "MIT",
+  "keywords": [
+    "claude-code",
+    "skill",
+    "code-review",
+    "architecture",
+    "first-principles",
+    "refactoring"
+  ]
+}
