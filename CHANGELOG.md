@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Merged mistakes/red-flags sections in SKILL.md to reduce redundancy.
 - README slimmed; verbose inline guidance moved into SKILL.md.
 - `private/` added to `.gitignore` to keep marketing docs out of the repo.
+- Phase 4: added "End with the decision, not the recommendation" closing rule; worked example updated to demonstrate it.
 
 ## [0.1.0] — 2026-04-16
 

@@ -86,6 +86,8 @@ Group improvements by **leverage**, not by file:
 
 Within each group, rank by impact × ease. Call out the **one or two changes that matter most** explicitly — don't bury them in a list of twenty.
 
+**End with the decision, not the recommendation.** The review exists to change what the user does next — so the closing move's job is to make the decision they now face clearer, not to push them toward one answer. Name the trade-off the user actually has to reason about in their context (which you can't see): the cost of doing the top item now vs. deferring it, and what that deferral specifically buys. A recommendation can follow — as a sentence, not the frame. "Want me to start on #1?" turns the reviewer into a hand-raiser; "The call is whether to pay down X now (unblocks Y, costs a day) or defer and let Y compound — I'd do it, but your read of the roadmap trumps mine" respects the user as the decision-maker.
+
 ## Worked Example
 
 Concrete sample of the expected output shape. Imagine the target is a Chrome extension that lets users annotate any webpage.
@@ -118,9 +120,11 @@ The two that matter most:
 Also worth doing:
 3. **[Implementation]** Memoize popup.tsx's annotation list — free win.
 4. **[Polish]** Rename `doSync()` → `flushPendingAnnotations()`; current name obscures what it does.
+
+The call is whether to do the background.ts split now — costs a day but unblocks the offline bug and makes the Supabase work tractable — or keep shipping features and let the entanglement compound. I'd split; your read of the roadmap trumps mine.
 ```
 
-Notice the shape: the architectural change is named *first*, with a reason tied back to a real symptom. Polish goes at the bottom, unranked. A flat list of twenty nits would bury #1 and #2.
+Notice the shape: the architectural change is named *first*, with a reason tied back to a real symptom. Polish goes at the bottom, unranked. The review ends on the decision the user faces — not a "want me to start?" hand-raise.
 
 ## Mindset
 
