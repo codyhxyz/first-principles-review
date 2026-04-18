@@ -13,6 +13,8 @@ A three-layer review that derives meaning top-down before judging anything: **WH
 
 This is the antidote to the default LLM review failure mode: surface-level critique that catalogs lint issues while missing that the architecture is wrong for the goal.
 
+**Lineage.** The WHY → WHAT → HOW structure mirrors David Marr's three levels of analysis (*Vision*, 1982): computational (what is the system trying to do, and why?) → algorithmic (what representations and processes does it use?) → implementational (how is it physically realized?). Marr's argument was that you cannot meaningfully understand a system at one level without understanding the level above it. Code review collapses without the same discipline.
+
 ## When to Use
 
 - User asks to review a codebase, repo, extension, plugin, app, or project
