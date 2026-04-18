@@ -1,5 +1,7 @@
 # first-principles-review
 
+<p align="center"><img src="assets/og.png" alt="first-principles-review" width="760"></p>
+
 > Makes Claude stop and ask: is this code actually solving the right problem?
 
 Run it after one-shotting something with Claude Code. It forces Claude to work out the WHY, WHAT, and HOW of your project before writing a review, instead of skimming the files and handing back a list of style nits.
