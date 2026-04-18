@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Changed
+- SKILL.md restructured with worked example, big-repo escape hatch, and hardened Phase 1 halt condition.
+- Merged mistakes/red-flags sections in SKILL.md to reduce redundancy.
+- README slimmed; verbose inline guidance moved into SKILL.md.
+- `private/` added to `.gitignore` to keep marketing docs out of the repo.
+
 ## [0.1.0] — 2026-04-16
 
 ### Added

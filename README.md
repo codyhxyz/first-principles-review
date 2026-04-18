@@ -8,12 +8,9 @@ The antidote to the default LLM code-review failure mode — flat lists of style
 
 Most coding agents, asked to "review this codebase," skim the files, surface a list of formatting and naming critiques, and call it done. Architectural problems go unmentioned. Goal mismatches go unnoticed.
 
-`first-principles-review` forces a different shape:
+`first-principles-review` forces a different shape: reconstruct the goal from first principles (WHY), map the architecture without judgment (WHAT), then read the code through that lens (HOW), and finally surface improvements ranked by leverage — not by file. The one or two changes that matter most come first, not buried under twenty style nits.
 
-1. **WHY** — Reconstruct the goal *from first principles*, not from the code. What problem does this exist to solve? What are the hard constraints? If unclear, ask the user before continuing.
-2. **WHAT** — Map the architecture. Major components, data flow, trust boundaries — without judgment yet.
-3. **HOW** — Now read the code, using WHY and WHAT as your lens. Where does the implementation diverge from the architecture? What's load-bearing? What's confused?
-4. **Improve** — Group findings by *leverage*, not by file. Goal-level → architectural → implementation → polish. Surface the **one or two changes that matter most**, don't bury them in a list of twenty.
+For the full phase-by-phase specification, see [`skills/first-principles-review/SKILL.md`](skills/first-principles-review/SKILL.md).
 
 ## When to invoke it
 
@@ -44,6 +41,8 @@ curl -fsSL https://raw.githubusercontent.com/codyhxyz/first-principles-review/ma
 ```
 
 Restart Claude Code. The skill becomes available via the `Skill` tool.
+
+> **Note:** This installs the skill directly into `~/.claude/skills/` and does not register the plugin wrapper — no `plugin.json` or marketplace metadata. That's fine for most users who just want the skill.
 
 ## Usage
 

@@ -11,12 +11,7 @@
     {
       "name": "first-principles-review",
       "description": "A Claude Code skill that reviews codebases top-down: WHY → WHAT → HOW → improvements ranked by leverage.",
-      "version": "0.1.0",
-      "source": "./",
-      "author": {
-        "name": "Cody Hergenroeder",
-        "email": "chergenroeder135@gmail.com"
-      }
+      "source": "./"
     }
   ]
 }
