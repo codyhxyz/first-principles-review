@@ -1,58 +1,66 @@
 # first-principles-review
 
-> A Claude Code skill that reviews codebases the way a senior engineer does: **WHY** (goal) → **WHAT** (architecture) → **HOW** (implementation) → improvements ranked by leverage.
+> Forces Claude to stop and ask: **is this code actually solving the right problem?**
 
-The antidote to the default LLM code-review failure mode — flat lists of style nitpicks that catalog lint issues while missing that the architecture is wrong for the goal.
+Use this after one-shotting something with Claude Code as a review step. It makes Claude take a step back and break down the **WHY**, **WHAT**, and **HOW** of your project — instead of skimming the files and handing you a list of style nits.
 
-## What it does
+## The problem
 
-Most coding agents, asked to "review this codebase," skim the files, surface a list of formatting and naming critiques, and call it done. Architectural problems go unmentioned. Goal mismatches go unnoticed.
+You one-shot a project with Claude. It looks fine. It runs. But you don't know what you don't know — and when you ask Claude to "review this code," it defaults to nitpicks because nitpicks are easy. Architectural problems go unmentioned. Goal mismatches go unnoticed. You ship it.
 
-`first-principles-review` forces a different shape: reconstruct the goal from first principles (WHY), map the architecture without judgment (WHAT), then read the code through that lens (HOW), and finally surface improvements ranked by leverage — not by file. The one or two changes that matter most come first, not buried under twenty style nits.
+## What you get
 
-For the full phase-by-phase specification, see [`skills/first-principles-review/SKILL.md`](skills/first-principles-review/SKILL.md).
+A review that catches goal and architecture mismatches — not a flat list of twenty formatting critiques.
 
-## When to invoke it
+**Default review:**
+- Rename `handleClick` → `onClick`
+- Add JSDoc to exported functions
+- Extract magic numbers to constants
+- [17 more style nits...]
 
-- Reviewing a codebase, extension, app, or project (especially AI-generated code)
+**first-principles review:**
+- **[Architectural]** `background.ts` interleaves storage + sync — this is why your offline bug is hard to fix
+- **[Implementation]** `MutationObserver` debounce is 16ms, causing the CPU spike users reported
+- **[Polish]** Memoize the annotation list — free win
+
+The architectural change is called out *first*, tied back to a real bug. Polish goes at the bottom, unranked.
+
+## Who this is for
+
+- Anyone shipping AI-generated code they didn't fully read
+- Indie hackers and vibe coders one-shotting projects with Claude Code
+- Engineers inheriting an unfamiliar repo who need a real opinion, fast
+- Anyone about to refactor or rewrite and wants to know what actually matters
+
+## When to use it
+
+- **After one-shotting a project** — the canonical use case
+- Reviewing a codebase, extension, or app (especially AI-generated)
 - "What could be better here?" / "Make this killer"
-- Inheriting an unfamiliar project and you need a real opinion
 - Before any non-trivial refactor or rewrite
 
 **Don't use for:** small diffs or single-file PRs (use a normal code review), or greenfield work with no code yet (use brainstorming).
 
-Claude Code will trigger this skill automatically when your request matches.
+## How it works
 
-## Installation
+`first-principles-review` forces a different shape than default LLM review:
 
-### Claude Code (recommended)
+1. **WHY** — Reconstruct the goal *from first principles*, not from the code. What problem does this exist to solve? What are the hard constraints? If unclear, ask the user before continuing.
+2. **WHAT** — Map the architecture. Major components, data flow, trust boundaries — without judgment yet.
+3. **HOW** — Now read the code, using WHY and WHAT as your lens. Where does the implementation diverge from the architecture? What's load-bearing? What's confused?
+4. **Improve** — Group findings by *leverage*, not by file. Goal-level → architectural → implementation → polish. Surface the **one or two changes that matter most**, don't bury them in a list of twenty.
 
-```bash
-/plugin marketplace add codyhxyz/first-principles-review
-/plugin install first-principles-review@first-principles-review
-```
+Forcing the WHY → WHAT → HOW order is a small constraint that produces dramatically better reviews. The skill exists to make that constraint stick.
 
-### Manual install
-
-```bash
-mkdir -p ~/.claude/skills/first-principles-review
-curl -fsSL https://raw.githubusercontent.com/codyhxyz/first-principles-review/main/skills/first-principles-review/SKILL.md \
-  -o ~/.claude/skills/first-principles-review/SKILL.md
-```
-
-Restart Claude Code. The skill becomes available via the `Skill` tool.
-
-> **Note:** This installs the skill directly into `~/.claude/skills/` and does not register the plugin wrapper — no `plugin.json` or marketplace metadata. That's fine for most users who just want the skill.
+For the full phase-by-phase specification, see [`skills/first-principles-review/SKILL.md`](skills/first-principles-review/SKILL.md).
 
 ## Usage
 
-Just ask Claude Code to review something:
+You don't have to remember to invoke it — Claude Code picks it up when you ask for a review:
 
 > "Review this Chrome extension and tell me what could be better."
 
 > "Take a first-principles look at this repo and propose improvements."
-
-The skill kicks in automatically. You'll get a structured review you can actually act on, instead of a flat list of style nits.
 
 ## Examples
 
@@ -60,7 +68,8 @@ The skill kicks in automatically. You'll get a structured review you can actuall
 
 > **Example 2:** "I inherited this repo and I don't trust the previous AI's refactor. What should I change?" — Instead of flagging 20 style issues, the skill names the single architectural mismatch (the sync queue has accreted complexity the original goal didn't require) and proposes a targeted rewrite with justification tied to the project's actual constraints. Polish-tier issues go at the bottom, unranked.
 
-## Output format
+<details>
+<summary>Sample output</summary>
 
 ```
 ## WHY
@@ -86,13 +95,28 @@ The skill kicks in automatically. You'll get a structured review you can actuall
 3. **[Polish]** popup.tsx — memoize the annotation list. Free win.
 ```
 
-Notice: the architectural change is called out *first*, with a reason tied back to a real bug — not buried under naming preferences.
+</details>
 
-## Why this skill exists
+## Installation
 
-When asked to "review this code," LLMs default to nitpicks because nitpicks are easy. Architectural critique requires understanding the goal, and most reviews skip that step.
+### Claude Code (recommended)
 
-Forcing the WHY → WHAT → HOW order is a small constraint that produces dramatically better reviews. The skill exists to make that constraint stick.
+```bash
+/plugin marketplace add codyhxyz/first-principles-review
+/plugin install first-principles-review@first-principles-review
+```
+
+### Manual install
+
+```bash
+mkdir -p ~/.claude/skills/first-principles-review
+curl -fsSL https://raw.githubusercontent.com/codyhxyz/first-principles-review/main/skills/first-principles-review/SKILL.md \
+  -o ~/.claude/skills/first-principles-review/SKILL.md
+```
+
+Restart Claude Code. The skill becomes available via the `Skill` tool.
+
+> **Note:** This installs the skill directly into `~/.claude/skills/` and does not register the plugin wrapper — no `plugin.json` or marketplace metadata. That's fine for most users who just want the skill.
 
 ## Contributing
 
