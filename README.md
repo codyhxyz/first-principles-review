@@ -100,6 +100,8 @@ Example 2: "I inherited this repo and I don't trust the previous AI's refactor. 
 /plugin install first-principles-review@first-principles-review
 ```
 
+See the full [codyhxyz-plugins marketplace](https://github.com/codyhxyz/codyhxyz-plugins) for my other plugins.
+
 ### Manual install
 
 ```bash
@@ -119,3 +121,7 @@ Issues and PRs welcome. If you've got a good before/after where this skill caugh
 ## License
 
 [MIT](LICENSE) © 2026 Cody Hergenroeder
+
+---
+
+<sub>Part of <a href="https://github.com/codyhxyz/codyhxyz-plugins"><b>codyhxyz-plugins</b></a> 🍋 — my registry of Claude Code plugins.</sub>
