@@ -45,10 +45,12 @@ Reach for it after one-shotting a project, before a non-trivial refactor, or any
 
 The skill forces a different shape than the default LLM review:
 
-1. WHY. Reconstruct the goal from first principles, not from the code. What problem does this exist to solve? What are the hard constraints? If any of that is unclear, ask the user before continuing.
-2. WHAT. Map the architecture. Components, data flow, trust boundaries. No judgment yet.
-3. HOW. Now read the code, with WHY and WHAT as the lens. Where does the implementation diverge from the intent? What's load-bearing? What's confused?
-4. Improve. Group findings by leverage, not by file. Goal-level, architectural, implementation, polish, in that order. Surface the one or two changes that actually matter. Don't bury them in a list of twenty.
+1. WHY. Reconstruct the goal from first principles, not from the code. What problem does this exist to solve? What are the hard constraints? Then call out any goal-level gaps — most projects have none, and that's fine.
+2. WHAT. Map the architecture. Components, data flow, trust boundaries. Then propose architectural improvements, each tied to a WHY constraint.
+3. HOW. Read the code, with WHY and WHAT as the lens. What's load-bearing? What's confused? What's fine? Then propose implementation improvements tied to what you just described.
+4. The call. Point at the one or two from above that matter most, drop polish nits, and name the trade-off the user now faces.
+
+Each layer pairs description with its own improvements, so an architectural finding can't hide under WHY and an implementation nit can't pose as architecture. The closing only points at what's already been laid out — no new findings.
 
 The WHY → WHAT → HOW ordering is the whole trick. Small constraint, very different output. The skill is basically there to make sure Claude doesn't skip it.
 
@@ -77,22 +79,32 @@ Example 2: "I inherited this repo and I don't trust the previous AI's refactor. 
 - Hard constraint: must work without server-side state for v1
 - Out of scope: real-time collaboration
 
+*Goal-level improvements:* none. The scope is clean.
+
 ## WHAT
 - background.ts: storage + sync (chrome.storage.local + later Supabase)
 - content.ts: injects annotation UI; uses MutationObserver for SPA navigation
 - popup.tsx: viewer for the current page's annotations
 - Data flow: user selects → content.ts builds Range → background.ts persists
 
+*Architectural improvements:*
+1. Split background.ts into storage.ts + sync.ts. The interleaving is why the offline-mode bug from issue #14 is hard to fix — tied to the "no server-side state for v1" constraint, which the current shape obscures.
+
 ## HOW
-- background.ts is doing too much. Sync logic is tangled into storage logic.
-- MutationObserver fires on every DOM change; there's a debounce but it's set to 16ms, which is basically no debounce
+- background.ts interleaves storage and sync; sync half dormant but entangled
+- MutationObserver debounce is 16ms — basically no debounce
 - popup.tsx re-fetches all annotations on every render
+- content.ts Range serialization handles shadow DOM correctly (notable — most web-highlighting code breaks here)
 
-## Improvements (ranked by leverage)
+*Implementation improvements:*
+1. Bump the MutationObserver debounce to 250ms. Kills the CPU spike people reported on Twitter.
+2. Memoize popup.tsx's annotation list. Free win.
 
-1. [Architectural] Split background.ts into storage.ts + sync.ts. The interleaving is why the offline-mode bug from issue #14 is hard to fix. They're sharing state they shouldn't.
-2. [Implementation] Bump the MutationObserver debounce to 250ms. Should kill the CPU spike people reported on Twitter.
-3. [Polish] popup.tsx: memoize the annotation list.
+## The call
+
+The two that matter most: the background.ts split (WHAT) and the debounce bump (HOW). Polish: rename `doSync()` → `flushPendingAnnotations()`.
+
+The call is whether to split background.ts now — costs a day, unblocks the offline bug, makes Supabase tractable — or keep shipping and let the entanglement compound. I'd split; your read of the roadmap trumps mine.
 ```
 
 </details>

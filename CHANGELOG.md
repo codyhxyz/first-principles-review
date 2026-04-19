@@ -7,7 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] — 2026-04-19
+
 ### Changed
+- **Output shape:** each phase now pairs description with its own improvements — WHY + goal-level improvements, WHAT + architectural, HOW + implementation — instead of collecting all improvements in a separate Phase 4. Phase 4 becomes "the call": the top 1–2 findings, polish nits, and the user-facing trade-off. Fixes the tense/purpose mismatch where HOW read as prescriptive while WHY and WHAT were descriptive.
+- Worked example and README "How it works" rewritten to match the paired-section shape.
+- Pitfalls table: added rows for layer-mixing (architectural fix under HOW, etc.) and "the call names something not described above."
 - SKILL.md restructured with worked example, big-repo escape hatch, and hardened Phase 1 halt condition.
 - Merged mistakes/red-flags sections in SKILL.md to reduce redundancy.
 - README slimmed; verbose inline guidance moved into SKILL.md.
