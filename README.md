@@ -1,5 +1,11 @@
 # first-principles-review
 
+<p align="center">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License"></a>
+  <a href="https://claude.com/product/claude-code"><img src="https://img.shields.io/badge/built_for-Claude%20Code-d97706" alt="Built for Claude Code"></a>
+  <a href="https://github.com/codyhxyz/codyhxyz-plugins"><img src="https://img.shields.io/badge/part_of-codyhxyz--plugins-ffd900?logo=github&logoColor=000" alt="Part of codyhxyz-plugins"></a>
+</p>
+
 <p align="center"><img src="docs/hero.gif" alt="first-principles-review" width="900"></p>
 
 > Makes Claude stop and ask: is this code actually solving the right problem?
