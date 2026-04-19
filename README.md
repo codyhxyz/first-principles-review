@@ -1,6 +1,6 @@
 # first-principles-review
 
-<p align="center"><img src="assets/og.png" alt="first-principles-review" width="760"></p>
+<p align="center"><img src="docs/hero.gif" alt="first-principles-review" width="900"></p>
 
 > Makes Claude stop and ask: is this code actually solving the right problem?
 
